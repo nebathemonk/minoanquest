@@ -1,0 +1,7 @@
+﻿Minoan Quest:
+
+timer befores steps.
+Hero gets to do an action during a step
+moving to or from a quest from town to town
+finding loot
+running into an enemy, or combating an enemy
