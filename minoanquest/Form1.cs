@@ -24,32 +24,16 @@ namespace minoanquest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            paused = false;
+            //set this form as the one the timer updates
+            TimeControl.setForm(this);
+
             tickSpeed = "x1";
-            timerStep.Start();
         }
 
-        internal bool toggleTimer()
+        public void updateStatusStrip()
         {
-            if (paused)
-            {
-                //unpause
-                timerStep.Start();
-            }
-            else
-            {
-                timerStep.Stop();
-            }
-            paused = !paused;
-
-            //give back the status of pause for button to change
-            return paused;
-        }
-
-        private void updateStatusStrip()
-        {
-            statusStepLabel.Text = "Steps: " + step.ToString();
-            if (paused)
+            statusStepLabel.Text = "Steps: " + TimeControl.getSteps().ToString();
+            if (TimeControl.paused)
             {
                 statusPlayLabel.Text = "Paused.";
             }
@@ -61,20 +45,10 @@ namespace minoanquest
             statusSpeedLabel.Text = tickSpeed;  
         }
 
-        private void timerStep_Tick(object sender, EventArgs e)
-        {
-            step++;
-            updateStatusStrip();
-        }
-
-        private void setTimerSpeed(int newSpeed)
-        {
-            timerStep.Interval = newSpeed;
-        }
 
         private void btnPause_Click(object sender, EventArgs e)
         {
-            if(toggleTimer())
+            if(TimeControl.togglePause())
             {
                 btnPause.Text = ">";
             }
@@ -83,20 +57,27 @@ namespace minoanquest
                 btnPause.Text = "||";
             }
             tickSpeed = "x1";
-            setTimerSpeed(1000);
+            TimeControl.setSpeed(1);
             updateStatusStrip();
         }
 
         private void btnSpeed2_Click(object sender, EventArgs e)
         {
-            setTimerSpeed(500);
+            TimeControl.setSpeed(2);
             tickSpeed = "x2";
+            updateStatusStrip();
         }
 
         private void btnSpeed3_Click(object sender, EventArgs e)
         {
-            setTimerSpeed(200);
+            TimeControl.setSpeed(3);
             tickSpeed = "x3";
+            updateStatusStrip();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Mob newMob = new Mob();
         }
     }
 }
